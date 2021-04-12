@@ -19,39 +19,55 @@
         public function run()
         {
 
-            $i = 1;
             $phones_quantity = 135791;
+            $part_size = 100;
 
             $phones_list_unique = [];
-            $phones_list = [];
 
-            // Формируем массив для пакетной записи в БД
+
+            $i = 1;
             while ($i < $phones_quantity) {
 
-                $phone = self::getRandomPhone();
+                $i_part = $i;
 
-                // Только уникальные номера телефонов
-                if (!in_array($phone['phone'], $phones_list_unique)) {
+                $phones_list = [];
 
-                    $phones_list_unique[] = $phone['phone'];
+                $part_limit = $i_part + $part_size;
+                while ($i_part < $part_limit) {
 
-                    $date = date('Y-m-d H:i:s');
 
-                    $phones_list[] = [
-                        'last_name' => self::getRandomName(),
-                        'first_name' => self::getRandomName(),
-                        'age' => self::getRandomAge(),
-                        'region_id' => (int)$phone['region_id'],
-                        'gender_id' => rand(1, 2),
-                        'phone' => (int)$phone['phone'],
-                        'created_at' => $date,
-                        'updated_at' => $date,
-                    ];
+                    // Формируем массив для пакетной записи в БД
+                    $phone = self::getRandomPhone();
 
-                    $i++;
+                    // Только уникальные номера телефонов
+                    if (!in_array($phone['phone'], $phones_list_unique)) {
+
+                        $phones_list_unique[] = $phone['phone'];
+
+                        $date = date('Y-m-d H:i:s');
+
+                        $phones_list[] = [
+                            'last_name' => self::getRandomName(),
+                            'first_name' => self::getRandomName(),
+                            'age' => self::getRandomAge(),
+                            'region_id' => (int)$phone['region_id'],
+                            'gender_id' => rand(1, 2),
+                            'phone' => (int)$phone['phone'],
+                            'created_at' => $date,
+                            'updated_at' => $date,
+                        ];
+
+                        $i_part++;
+                    }
                 }
+
+                DB::table('phones')->insert($phones_list);
+
+                $i = $i_part;
             }
 
-            DB::table('phones')->insert($phones_list);
+
         }
+
+
     }

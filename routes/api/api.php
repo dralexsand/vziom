@@ -20,9 +20,18 @@ use Illuminate\Support\Facades\Route;
 
 
     Route::get(
-        '/filter',
+        '/data',
         [
             'App\Http\Controllers\Api\v1\PhonesController',
             'index'
+        ]
+    );
+
+
+    Route::get(
+        '/data/{per_page}',
+        [
+            'App\Http\Controllers\Api\v1\PhonesController',
+            'getData'
         ]
     );
