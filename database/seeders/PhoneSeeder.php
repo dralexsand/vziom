@@ -20,7 +20,7 @@
         {
 
             $i = 1;
-            $phones_quantity = 3579;
+            $phones_quantity = 135791;
 
             $phones_list_unique = [];
             $phones_list = [];
