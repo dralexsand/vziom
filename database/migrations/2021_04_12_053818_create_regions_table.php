@@ -4,7 +4,7 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreatePhonesTable extends Migration
+    class CreateRegionsTable extends Migration
     {
         /**
          * Run the migrations.
@@ -13,14 +13,11 @@
          */
         public function up()
         {
-            Schema::create('phones', function (Blueprint $table) {
+            Schema::create('regions', function (Blueprint $table) {
                 $table->id();
-                $table->string('last_name');
-                $table->string('first_name');
-                $table->smallInteger('age');
                 $table->smallInteger('region_id');
-                $table->smallInteger('gender_id');
-                $table->bigInteger('phone');
+                $table->string('region');
+                $table->string('code');
                 $table->timestamps();
             });
         }
@@ -32,6 +29,6 @@
          */
         public function down()
         {
-            Schema::dropIfExists('phones');
+            Schema::dropIfExists('regions');
         }
     }
